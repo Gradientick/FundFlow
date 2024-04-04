@@ -1,7 +1,10 @@
 function LoginPageNavBar() {
   return (
-    <div className="h-24 bg-light flex justify-center items-center">
-      <h1 className=" font-bold text-sblue text-5xl">FundFlow</h1>
+    <div>
+      <div className="h-24 bg-dark-gradient flex justify-center items-center fixed w-full">
+        <h1 className=" font-bold text-[#D1D5DB] text-5xl">FundFlow</h1>
+      </div>
+      <div className="h-24"></div>
     </div>
   );
 }
