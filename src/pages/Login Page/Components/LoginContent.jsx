@@ -4,6 +4,7 @@ import { useState } from "react";
 
 function LoginContent() {
   const [isLogin, setIsLogin] = useState(true);
+
   return (
     <div className="bg-[#262A33] h-screen">
       <div className="flex">

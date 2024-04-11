@@ -1,15 +1,34 @@
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
-import handleRegister from "../../../features/registerFeature";
+import handleRegister from "../../../features/registerFeature.js";
+import Spinner from "./Spinner.jsx";
+import { useState } from "react";
 
 function RegisterForm({ setIsLogin }) {
+  const [isLoading, setIsLoading] = useState(false);
   const form = useForm();
   const { register, control, handleSubmit, formState, watch } = form;
-  const { errors } = formState;
+  const { errors, isValid } = formState;
   const password = watch("password");
   const onSubmit = (data) => {
+    setIsLoading(true);
     console.log("form submitted", data);
+    const { name, username, email, password } = data;
+    handleRegister(name, username, email, password)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err))
+      .finally(() => {
+        setIsLoading(false);
+        setIsLogin(true);
+      });
   };
+
+  if (isLoading) {
+    return <Spinner />; // Render the Spinner component when isLoading is true
+  }
+
   return (
     <div className="w-3/6 h-5/6">
       <form
@@ -118,6 +137,7 @@ function RegisterForm({ setIsLogin }) {
             <button
               className="w-full bg-[#3182CE] hover:bg-[#63B3ED] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-all"
               type="submit"
+              disabled={!isValid}
             >
               Register
             </button>
